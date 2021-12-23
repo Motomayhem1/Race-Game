@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using Common;
 using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace TrafficRacer
 {
@@ -13,10 +16,14 @@ namespace TrafficRacer
         private Collider colliderComponent;                         //ref to collider component
         private float endXPos = 0;                                  //variable to change player x position
         private Rigidbody myBody;
+		[SerializeField] private float speed;
+		[SerializeField] private int coins;
+		[SerializeField] private Text coinsText;
 		
-		public int coins;
-
-        private void OnDisable()
+		private float maxSpeed = 110;
+        
+		
+		private void OnDisable()
         {
             InputManager.instance.swipeCallback -= ActionOnSwipe;   //unsubscribe to the event
         }
@@ -27,6 +34,7 @@ namespace TrafficRacer
             myBody.isKinematic = true;                              //set isKinematic to false
             myBody.useGravity = false;                              //set useGravity ture
             SpawnVehicle(GameManager.singeton.currentCarIndex);     //spawn the selected car
+			StartCoroutine(SpeedIncrease());
         }
 
         public void GameStarted()
@@ -81,24 +89,22 @@ namespace TrafficRacer
                     gameObject.GetComponent<Rigidbody>().AddForce(Random.insideUnitCircle.normalized * 100f);
                 }
             }
-			if (other.GetComponent<MoneyController>())              //check if the collided object has EnemyController on it
-            {
-                if (GameManager.singeton.gameStatus == GameStatus.PLAYING)  //check if gameStatus is PLAYING
-                {
-                    DOTween.Kill(this);                             //kill the dotween of this object
-                    LevelManager.instance.GameOver();               //call GameOver
-                    colliderComponent.isTrigger = false;            //set isTrigger to false
-                    myBody.isKinematic = false;                     //set isKinematic to false
-                    myBody.useGravity = true;                       //set useGravity ture
-                    //add a random force
-                    gameObject.GetComponent<Rigidbody>().AddForce(Random.insideUnitCircle.normalized * 100f);
-                }
-            }
 			if (other.gameObject.tag == "Money")
 			{
 				coins++;
-				other.gameObject.SetActive(false);
+				coinsText.text = coins.ToString();
+				Destroy(other.gameObject);
 			}
         }
+		private IEnumerator SpeedIncrease()
+		{
+			yield return new WaitForSeconds(1);
+			if (speed < maxSpeed)
+			{
+				speed += 1;
+				StartCoroutine(SpeedIncrease());
+			}
+		}
+		
     }
 }

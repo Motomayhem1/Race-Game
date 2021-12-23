@@ -14,19 +14,16 @@ namespace TrafficRacer
         [SerializeField] private float moveSpeed = 8;               //speed with which game moves
         [SerializeField] private GameObject roadPrefab;             //ref to raod prefab
         [SerializeField] private GameObject[] vehiclePrefabs;       //ref to all vehicle prefabs
-		[SerializeField] private GameObject[] moneyPrefabs;       //ref to all vehicle prefabs
 
 
         private List<GameObject> roads;                             //list to store the roads spawned in the game
         private Vector3 nextRoadPos = Vector3.zero;                 //position for next road
         private GameObject tempRoad, roadHolder;                    //variables
         private EnemyManager enemyManager;                          //variable to store EnemyManager
-		private MoneyManager moneyManager;
         private PlayerController playerController;                  //variable to store PlayerController
         private float distanceTravelled = 0;                        //track distance travelled
         private int trackRoadAtIndex = 0, lastTrack = 0;            //this variable are used to Reuse the roads in the game
 
-        public GameObject[] MoneyPrefabs { get { return moneyPrefabs; } }           //getter
 		public GameObject[] VehiclePrefabs { get { return vehiclePrefabs; } }           //getter
         public PlayerController PlayerController { get { return playerController; } }   //getter
 
@@ -55,8 +52,7 @@ namespace TrafficRacer
             enemyManager = new EnemyManager(nextRoadPos, moveSpeed);    //create EnemyManager
             enemyManager.SpawnEnemies(vehiclePrefabs);                  //spawn enemies
 			
-			moneyManager = new MoneyManager(nextRoadPos, moveSpeed);    //create EnemyManager
-            moneyManager.SpawnMoney(moneyPrefabs);                  //spawn enemies
+			
 
             SpawnPlayer();
         }
@@ -104,7 +100,6 @@ namespace TrafficRacer
         {
             GameManager.singeton.gameStatus = GameStatus.PLAYING;   //set the game status to Playing
             enemyManager.ActivateEnemy();                           //activate the enemy
-            moneyManager.ActivateMoney();
 			playerController.GameStarted();                         //inform player about game starting
         }
 
@@ -128,10 +123,6 @@ namespace TrafficRacer
             if (other.GetComponent<EnemyController>())               //check if the collided object has EnemyController on it        
             {
                 enemyManager.ActivateEnemy();                           //ActivateEnemy
-            }
-			if (other.GetComponent<MoneyController>())               //check if the collided object has EnemyController on it        
-            {
-                moneyManager.ActivateMoney();                           //ActivateEnemy
             }
         }
 

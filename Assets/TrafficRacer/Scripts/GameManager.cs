@@ -13,6 +13,7 @@ namespace TrafficRacer
 
         [HideInInspector] public GameStatus gameStatus = GameStatus.NONE;
         [HideInInspector] public int currentCarIndex = 0;
+		
 
         private void Awake()
         {
@@ -26,6 +27,9 @@ namespace TrafficRacer
                 Destroy(gameObject);
             }
         }
+		
+		
+		
 
     }
 }

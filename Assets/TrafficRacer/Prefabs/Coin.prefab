@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3724299977443827667}
   - component: {fileID: 3724322876647655735}
-  - component: {fileID: 4787063476410857735}
+  - component: {fileID: -5637530480144278945}
+  - component: {fileID: -9024234573387663150}
   m_Layer: 0
-  m_Name: Money
+  m_Name: Coin
   m_TagString: Money
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,8 +84,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!64 &4787063476410857735
-MeshCollider:
+--- !u!114 &-5637530480144278945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014168828673620596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1995cd413f0ac244947116dcc2bc7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-9024234573387663150
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +106,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64, z: 0.13669622}
+  m_Center: {x: 0, y: 0, z: -0.0012869239}

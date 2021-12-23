@@ -27,7 +27,7 @@ namespace TrafficRacer
 
         public void SpawnEnemies(GameObject[] vehiclePrefabs)       //method to spawn enemies
         {
-            for (int i = 0; i < vehiclePrefabs.Length; i++)         //loop through all the vehicles in the list
+            for (int i = 1; i < vehiclePrefabs.Length; i++)         //loop through all the vehicles in the list
             {                                                       //spawn the enemy
                 GameObject enemy = Object.Instantiate(vehiclePrefabs[i], enemySpawnPos[1], Quaternion.identity);
                 enemy.SetActive(false);                             //deactivate the enemy

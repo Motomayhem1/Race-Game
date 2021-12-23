@@ -16,12 +16,8 @@ namespace TrafficRacer
         private Collider colliderComponent;                         //ref to collider component
         private float endXPos = 0;                                  //variable to change player x position
         private Rigidbody myBody;
-		[SerializeField] private float speed;
 		[SerializeField] private int coins;
-		[SerializeField] private Text coinsText;
-		
-		private float maxSpeed = 110;
-        
+        [SerializeField] private Text coinsText;
 		
 		private void OnDisable()
         {
@@ -34,7 +30,6 @@ namespace TrafficRacer
             myBody.isKinematic = true;                              //set isKinematic to false
             myBody.useGravity = false;                              //set useGravity ture
             SpawnVehicle(GameManager.singeton.currentCarIndex);     //spawn the selected car
-			StartCoroutine(SpeedIncrease());
         }
 
         public void GameStarted()
@@ -89,22 +84,16 @@ namespace TrafficRacer
                     gameObject.GetComponent<Rigidbody>().AddForce(Random.insideUnitCircle.normalized * 100f);
                 }
             }
+			
 			if (other.gameObject.tag == "Money")
 			{
 				coins++;
-				coinsText.text = coins.ToString();
+				
 				Destroy(other.gameObject);
 			}
+
         }
-		private IEnumerator SpeedIncrease()
-		{
-			yield return new WaitForSeconds(1);
-			if (speed < maxSpeed)
-			{
-				speed += 1;
-				StartCoroutine(SpeedIncrease());
-			}
-		}
+		
 		
     }
 }
